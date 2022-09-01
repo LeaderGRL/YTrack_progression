@@ -1,4 +1,5 @@
-import { createClient } from "@01-edu/api"
+import { createClient } from "@01-edu/api";
+import fetch from "node-fetch";
 
 
 export let user = Array()
@@ -19,6 +20,43 @@ export const users = [{
   user : String,
   progress : Number
 }]
+
+export async function fetchObject(piscine_name){
+  try{
+    fetch("https://ytrack.learn.ynov.com/api/object/lyon/")
+    .then(response => response.json())
+    .then(data => {
+      //console.log(data["children"]["challenge-go"]["children"])
+      let quest = data["children"][piscine_name]["children"]
+      let obj = JSON.parse(JSON.stringify(quest))
+      let it = Object.keys(obj).length
+      let it2 = Object.keys(obj).length
+      // console.log(quest["quest-01"])
+      for(let i = 0; i < it; i++){
+        // console.log(quest[i])
+        for(let j = 0; j < quest["quest-0" + i]; j++){
+          console.log("test")
+          console.log(quest["quest-" + i])
+        }
+      }
+    }).catch(err => {
+      console.log(err)
+    }
+    )
+  }
+  catch(error){
+    console.log(error)
+  }
+  
+  // .then(data => {
+  //   for(let i = 0; i < data.length; i++){
+  //     if(data[i].children == piscine_name){
+  //       console.log(data[i].children)
+  //     }
+  //   }
+  // }
+  // )
+}
 
 export async function fetchXp(username, objectname) {
     try{
@@ -97,3 +135,5 @@ export async function getUserProgress(){
   // return users
  
 }
+
+fetchObject("challenge-go")
