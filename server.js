@@ -26,14 +26,14 @@ app.set('view engine', 'pug');
 // )
 
 
-// xp.getUserProgress().then(function(result){
-//     // console.log(result)
-//     user = result
-//     // console.log(user["user"])
-//     // console.log(user[0]["user"])
+xp.getUserProgress().then(function(result){
+    // console.log(result)
+    user = result
+    // console.log(user["user"])
+    // console.log(user[0]["user"])
 
-//   }
-// )
+  }
+)
 
 app.get('/', (req,res) => {
   // console.log(user["user"])

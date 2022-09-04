@@ -3,9 +3,10 @@ import fetch from "node-fetch";
 
 
 export let user = Array()
+export let object = Array()
+let exercises = Array()
 let pBar = Array()
 let incomplete = 0
-export const object = ["introduction", "printalphabet", "printreversalphabet", "printdigits", "isnegative", "printcomb", "printnbr", "printcomb2", "firstrune", "lastrune", "strlen", "printstr", "compare", "isupper", "isnumeric", "alphacount", "isprintable", "tolower", "concat", "basicjoin", "join", "trimatoi", "printnbrinorder", "index", "capitalize", "printnbrbase", "atoibase", "iterativefactorial", "recursivefactorial", "iterativepower", "recursivepower", "sqrt", "isprime", "fibonacci", "findnextprime", "printcombn", "eightqueens", "pointone", "pilot", "fixthemain", "ultimatepointone", "divmod", "ultimatedivmod", "point", "swap", "strrev", "basicatoi", "basicatoi2", "atoi", "sortintegertable", "printprogramname", "printparams", "revparams", "boolean", "sortparams", "nbrconvertalpha", "flags", "rotatevowels", "appendrange", "makerange", "concatparams", "splitwhitespaces", "printwordstables", "split", "convertbase", "foreach", "map", "any", "countif", "issorted", "doop", "sortwordarr", "advancedsortwordarr", "displayfile", "cat", "ztail", "listpushback", "listpushfront", "listsize", "listlast", "listclear", "listat", "listreverse", "listforeach", "listforeachif", "listfind", "listremoveif", "listmerge", "listsort", "sortlistinsert", "sortedlistmerge"]
 
 const domain = 'ytrack.learn.ynov.com'
     // access_token is the token provided by gitea
@@ -23,41 +24,22 @@ export const users = [{
 
 export async function fetchObject(piscine_name) {
     try {
-        fetch("https://ytrack.learn.ynov.com/api/object/lyon/")
+        await fetch("https://ytrack.learn.ynov.com/api/object/lyon/")
             .then(response => response.json())
-            .then(data => {
-                //console.log(data["children"]["challenge-go"]["children"])
+            .then(data => {          
                 let quest = data["children"][piscine_name]["children"]
-                let obj = JSON.parse(JSON.stringify(quest))
-                let it = Object.keys(obj).length
-                let exercises = Array()
-                for (let i = 0; i < it; i++) {
-                    if (i < 10) {
-                        if (quest["quest-0" + i] !== undefined) {
-                            exercises.push(quest["quest-0" + i]["children"])
-                        }
-                    } else {
-                        if (quest["quest-" + i] !== undefined) {
-                            exercises.push(quest["quest-" + i]["children"])
-                        }
+                for(var key in quest){
+                    for(var key2 in quest[key]["children"]){
+                        exercises.push(key2)
                     }
                 }
-                return exercises
+                // return exercises
             }).catch(err => {
                 console.log(err)
             })
     } catch (error) {
         console.log(error)
     }
-
-    // .then(data => {
-    //   for(let i = 0; i < data.length; i++){
-    //     if(data[i].children == piscine_name){
-    //       console.log(data[i].children)
-    //     }
-    //   }
-    // }
-    // )
 }
 
 export async function fetchXp(username, objectname) {
@@ -109,17 +91,20 @@ export async function getUser(campus, path) {
 
 export async function getUserProgress() {
 
-    user = await getUser("lyon", "/lyon/div-01-2122/challenge-js").then(async function(result) {
-
+    object = await fetchObject("challenge-js").then(async function(obj){
+        // console.log(exercises)
+        // console.log(obj)
+    
+        user = await getUser("lyon", "/lyon/div-01-2122/challenge-js").then(async function(result) {
             // console.log(result)
 
             for (let i = 0; i < result.length; i++) {
-                for (let j = 0; j < object.length; j++) {
+                for (let j = 0; j < exercises.length; j++) {
                     console.log(i + " : " + j)
-                    const xp = await fetchXp(result[i], object[j])
+                    const xp = await fetchXp(result[i], exercises[j])
                 }
 
-                pBar[i] = ((object.length - incomplete) / object.length) * 100
+                pBar[i] = ((exercises.length - incomplete) / exercises.length) * 100
                     // console.log(pBar[i])
                 users.push({
                     user: result[i],
@@ -134,7 +119,15 @@ export async function getUserProgress() {
         })
         // console.log( "TEST" + users[0].progress)
         // return users
+    })
+    
 
 }
 
-fetchObject("challenge-go")
+// object = await fetchObject("challenge-js").then(async function(obj){
+//     // console.log(exercises)
+//     console.log(obj)
+// })
+// console.log(object)
+
+// fetchObject("challenge-js")
