@@ -8,18 +8,16 @@
     <body>
     <div class="main-container">
         <div id="title"> BARRE DE PROGRESSION YTRACK </div>
-        <div id="progress-bar-class-container">
-            <div id="progress-bar-class">
-                <div id="class-container">
-                    <div class="class-a progress-bar-class-inner">
-                    <p>CLASSE A</p>
-                    </div>
-                    <div class="class-b progress-bar-class-inner">
-                    <p>CLASSE B</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        - let progA =  "width: " + ((b1A.questCompleted / b1A.totalQuests)*100) + "%";
+        - let progB =  "width: " + ((b1B.questCompleted / b1B.totalQuests)*100) + "%";
+        div(id="progress-bar-class-container")
+            div(id="progress-bar-class")
+                div(id="class-container")
+                    div(class="class-a progress-bar-class-inner" style=progA)
+                        p #{b1A.questCompleted}
+                    div(class="class-b progress-bar-class-inner" style=progB)
+                        p #{b1B.questCompleted}
+        end
             <div id="progress-container">
             <div id="progress-bar">
                 - for (var i = 0; i < user.length; i++)

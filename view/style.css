@@ -9,7 +9,7 @@
 
 #title {
     text-align: center;
-    padding-top: 1%;
+    padding-top: 0.5%;
     font-size: 32pt;
     width: 100%;
     background-color: #293241;
@@ -30,7 +30,7 @@
 }
 
 #progress-container {
-    margin-top: 4vh;
+    margin-top: 3vh;
     /* padding-top: 2%; */
     /* border: 5px solid #293241 */
 }

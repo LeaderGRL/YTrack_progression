@@ -10,12 +10,14 @@ let incomplete = 0
 
 export const classB1A = {
     names: ["aleo", "aibrahim", "atommy", "btom", "bsam", "bjules", "bmiguel", "cgaspard", "cdylan", "gmaeva", "galexis", "kthomas", "kchouaib", "lhugo", "lbastien", "meoghan", "mgabriel", "mmike", "msiweil", "rlucas", "rdoria", "selouan", "swilliam", "tthienti", "wnathan"],
-    questCompleted: 0
+    questCompleted: 0,
+    totalQuests: 0
 }
 
 export const classB1B = {
     names: ["arachfan", "anathali", "apierre", "bgeoffre", "bleonard", "bmayeul", "balexandr", "cgabriel", "cclement", "crlukas", "ebastien", "galban", "gaxel", "krony", "kaymeric", "lmanon", "mvincent", "mequentin", "MALVINE", "pemma", "ranthony", "renvel", "ralexis", "sleo", "salexis", "slucas", "ymazigh"],
-    questCompleted: 0
+    questCompleted: 0,
+    totalQuests: 0
 }
 
 const domain = 'ytrack.learn.ynov.com'
@@ -43,8 +45,10 @@ export async function fetchObject(piscine_name) {
                         exercises.push(key2)
                     }
                 }
-                // return exercises
-                // console.log(exercises)
+                classB1A.totalQuests = exercises.length * classB1A.names.length
+                classB1B.totalQuests = exercises.length * classB1B.names.length
+                    // return exercises
+                    // console.log(exercises)
             }).catch(err => {
                 console.log(err)
             })
@@ -117,7 +121,14 @@ export async function getUserProgress() {
                     }
 
                     pBar[i] = ((exercises.length - incomplete) / exercises.length) * 100
-                        // console.log(pBar[i])
+                    if (classB1A.names.includes(result[i])) {
+                        classB1A.questCompleted += (exercises.length - incomplete)
+                        console.log("classA questcompleted : " + classB1A.questCompleted)
+                    } else if (classB1B.names.includes(result[i])) {
+                        classB1B.questCompleted += (exercises.length - incomplete)
+                        console.log("classB questcompleted : " + classB1B.questCompleted)
+                    }
+                    // console.log(pBar[i])
                     users.push({
                         user: result[i],
                         progress: pBar[i]
