@@ -8,6 +8,16 @@ let exercises = Array()
 let pBar = Array()
 let incomplete = 0
 
+export const classB1A = {
+    names: ["aleo", "aibrahim", "atommy", "btom", "bsam", "bjules", "bmiguel", "cgaspard", "cdylan", "gmaeva", "galexis", "kthomas", "kchouaib", "lhugo", "lbastien", "meoghan", "mgabriel", "mmike", "msiweil", "rlucas", "rdoria", "selouan", "swilliam", "tthienti", "wnathan"],
+    questCompleted: 0
+}
+
+export const classB1B = {
+    names: ["arachfan", "anathali", "apierre", "bgeoffre", "bleonard", "bmayeul", "balexandr", "cgabriel", "cclement", "crlukas", "ebastien", "galban", "gaxel", "krony", "kaymeric", "lmanon", "mvincent", "mequentin", "MALVINE", "pemma", "ranthony", "renvel", "ralexis", "sleo", "salexis", "slucas", "ymazigh"],
+    questCompleted: 0
+}
+
 const domain = 'ytrack.learn.ynov.com'
     // access_token is the token provided by gitea
 const access_token = 'b6cf9f7e6f1591712a97ee11818383065d4fd316'
@@ -26,14 +36,15 @@ export async function fetchObject(piscine_name) {
     try {
         await fetch("https://ytrack.learn.ynov.com/api/object/lyon/")
             .then(response => response.json())
-            .then(data => {          
+            .then(data => {
                 let quest = data["children"][piscine_name]["children"]
-                for(var key in quest){
-                    for(var key2 in quest[key]["children"]){
+                for (var key in quest) {
+                    for (var key2 in quest[key]["children"]) {
                         exercises.push(key2)
                     }
                 }
                 // return exercises
+                // console.log(exercises)
             }).catch(err => {
                 console.log(err)
             })
@@ -91,36 +102,37 @@ export async function getUser(campus, path) {
 
 export async function getUserProgress() {
 
-    object = await fetchObject("challenge-js").then(async function(obj){
+    object = await fetchObject("challenge-go").then(async function(obj) {
         // console.log(exercises)
         // console.log(obj)
-    
-        user = await getUser("lyon", "/lyon/div-01-2122/challenge-js").then(async function(result) {
-            // console.log(result)
 
-            for (let i = 0; i < result.length; i++) {
-                for (let j = 0; j < exercises.length; j++) {
-                    console.log(i + " : " + j)
-                    const xp = await fetchXp(result[i], exercises[j])
+        user = await getUser("lyon", "/lyon/challenge-go").then(async function(result) {
+                // console.log(result)
+
+                for (let i = 0; i < result.length; i++) {
+                    for (let j = 0; j < exercises.length; j++) {
+                        // console.log(i + " : " + j)
+                        const xp = await fetchXp(result[i], exercises[j])
+                            // console.log(xp)
+                    }
+
+                    pBar[i] = ((exercises.length - incomplete) / exercises.length) * 100
+                        // console.log(pBar[i])
+                    users.push({
+                        user: result[i],
+                        progress: pBar[i]
+                    })
+                    console.log(incomplete)
+                        //console.log(users)
+                    incomplete = 0
+                        // console.log(users)  
                 }
-
-                pBar[i] = ((exercises.length - incomplete) / exercises.length) * 100
-                    // console.log(pBar[i])
-                users.push({
-                    user: result[i],
-                    progress: pBar[i]
-                })
-                console.log(incomplete)
-                    //console.log(users)
-                incomplete = 0
-                    // console.log(users)  
-            }
+                // return users
+            })
+            // console.log( "TEST" + users[0].progress)
             // return users
-        })
-        // console.log( "TEST" + users[0].progress)
-        // return users
     })
-    
+
 
 }
 
@@ -130,4 +142,5 @@ export async function getUserProgress() {
 // })
 // console.log(object)
 
-// fetchObject("challenge-js")
+// fetchObject("challenge-go")
+// getUserProgress()

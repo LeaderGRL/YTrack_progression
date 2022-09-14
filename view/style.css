@@ -1,34 +1,102 @@
-/* body{
-    background-color: #d80000;
-} */
+.main-container {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: #f5ffff;
+}
 
+#title {
+    text-align: center;
+    padding-top: 1%;
+    font-size: 32pt;
+    width: 100%;
+    background-color: #293241;
+    color: #E0FBFC
+}
 
-#progress-bar{
+#progress-bar-class-container {
+    height: 10vh;
+    background-color: #293241;
+}
+
+.class-a {
+    background-color: #EE6C4D!important;
+}
+
+.class-b {
+    background-color: #3D5A80!important;
+}
+
+#progress-container {
+    margin-top: 4vh;
+    /* padding-top: 2%; */
+    /* border: 5px solid #293241 */
+}
+
+#progress-bar {
+    /* padding-top: 5%; */
     position: relative;
+    margin-right: 5px;
     display: flex;
     flex-wrap: wrap;
-    flex-direction: column;
-    width: 100vw;
-    height: 100vh;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    height: 80%;
 }
+
+#progress-bar-class {
+    /* padding-top: 5%; */
+    position: relative;
+    margin-right: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+}
+
 #progress-bar-inner {
-  background-color: #7c00d48b;
-  height: 25px;
-  border-radius: 10px;
-  /* swidth: 100%; */
+    background-color: #EE6C4D;
+    height: 25px;
+    border-radius: 10px;
+    /* swidth: 100%; */
 }
 
-#container{
-  background-color: rgb(255, 255, 255);
-  min-width: 33%;
-  height: fit-content;
-  border-radius: 10px;
-  border : 1px solid black;
+.progress-bar-class-inner {
+    background-color: #293241;
+    height: 25px;
+    border-radius: 10px;
+    /* swidth: 100%; */
 }
 
-p{
+#class-container {
+    background-color: #293241;
+    width: 50%;
+    max-width: 100%;
+    /* min-width: 32.5%; */
+    height: fit-content;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+#container {
+    background-color: #293241;
+    width: 32.5%;
+    max-width: 100%;
+    /* min-width: 32.5%; */
+    height: fit-content;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+p {
     font-size: 20px;
-    color: #fff;
+    color: #E0FBFC;
+    margin: auto;
     /* position: absolute; */
     /* top: 50%;
     left: 50%;
